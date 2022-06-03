@@ -12,7 +12,7 @@ let minus = document.querySelector('#minus');
 let plus = document.querySelector('#plus');
 let heart = document.querySelector('#heart');
 let pause = document.querySelector('#pause');
-
+let countArr = []
 minus.addEventListener('click', () => {
     time--;
     counter.innerHTML = time;
@@ -23,7 +23,13 @@ plus.addEventListener('click', () => {
 })
 heart.addEventListener('click', () => {
     let ul = document.createElement('ul')
-    ul.innerText = `${time} has been liked!`;
+    let currentTime = time;
+    if (currentTime = time){
+        countArr.push('1');
+    } else {
+        countArr = [];
+    }
+    ul.innerText = `${time} has been liked ${countArr.length} time(s)!`;
     document.querySelector('.likes').appendChild(ul)
 })
 
@@ -32,12 +38,18 @@ pause.addEventListener('click', () => {
     if(pause.classList.contains('stop')) {
         pause.innerHTML = 'start';
         clearInterval(intervalID);
+        //minus.disabled = true; 
+        //plus.disabled = true;  
+        //heart.disabled = true;   
     } else {
         pause.innerHTML = 'pause'
         intervalID = setInterval(() => {
             time++;
             counter.innerHTML = time;
         }, 1000)
+        minus.disabled = false; 
+        plus.disabled = false;  
+        heart.disabled = false; 
     }
 })
 
